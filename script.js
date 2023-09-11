@@ -1,3 +1,29 @@
+
+const numberButtons = document.querySelectorAll('.number-btn');
+const operatorButtons = document.querySelectorAll('.operator-btn');
+const equalsButton = document.querySelector('.equal-btn');
+const deleteButton = document.querySelector('.deleteButton')
+const clearButton = document.querySelector('.clear-btn');
+const pointButton = document.querySelector('.point-btn');
+const previousOperationScreen = document.querySelector('.screen-previous');
+const currentOperationScreen = document.querySelector('.screen-current');
+
+numberButtons.forEach((button) =>
+    button.addEventListener('click', () => appendNumber(button.textContent))
+)
+
+operatorButtons.forEach((button) =>
+    button.addEventListener('click', () => setOperator(button.textContent))
+)
+
+function appendNumber(number){
+    currentOperationScreen.textContent += number;
+}
+
+function setOperator(operator){
+    currentOperationScreen.textContent += operator;
+}
+
 function add(num1, num2) {
     return num1 + num2;
 }
