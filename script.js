@@ -1,8 +1,14 @@
 
+let operand1 = '';
+let operand2 = '';
+let currentOperation = null;
+let shouldResetScreen = false;
+
+
 const numberButtons = document.querySelectorAll('.number-btn');
 const operatorButtons = document.querySelectorAll('.operator-btn');
 const equalsButton = document.querySelector('.equal-btn');
-const deleteButton = document.querySelector('.deleteButton')
+const deleteButton = document.querySelector('.delete-btn')
 const clearButton = document.querySelector('.clear-btn');
 const pointButton = document.querySelector('.point-btn');
 const previousOperationScreen = document.querySelector('.screen-previous');
@@ -11,17 +17,41 @@ const currentOperationScreen = document.querySelector('.screen-current');
 numberButtons.forEach((button) =>
     button.addEventListener('click', () => appendNumber(button.textContent))
 )
-
 operatorButtons.forEach((button) =>
-    button.addEventListener('click', () => setOperator(button.textContent))
+    button.addEventListener('click', () => setOperation(button.textContent))
 )
+deleteButton.addEventListener('click', deleteNum);
+clearButton.addEventListener('click', clear);
 
+// Function to add number to screen
 function appendNumber(number){
     currentOperationScreen.textContent += number;
 }
 
-function setOperator(operator){
-    currentOperationScreen.textContent += operator;
+// Function to add operator to screen
+function setOperation(operator){
+    if (currentOperation !== null) evaluate();
+    operand1 = currentOperationScreen.textContent;
+    currentOperation = operator;
+    previousOperationScreen.textContent = `${operand1} ${currentOperation}`;
+    shouldResetScreen = true;
+}
+
+//function to clear screen
+function clear(){
+    currentOperationScreen.textContent = '0';
+    previousOperationScreen.textContent = '';
+    operand1 = '';
+    operand2 = '';
+    currentOperation = null;
+}
+
+
+//function to delete
+function deleteNum(){
+    currentOperationScreen.textContent = currentOperationScreen.textContent
+    .toString()
+    .slice(0, -1);
 }
 
 function add(num1, num2) {
@@ -63,10 +93,10 @@ function operate(num1, num2, operator){
     } 
 }
 
-num1 = 2
-num2 = 2
-operator = '/';
-result = operate(num1, num2, operator);
+// num1 = 2
+// num2 = 2
+// operator = '/';
+// result = operate(num1, num2, operator);
 
-const display = document.querySelector("#display");
-display.innerHTML = `${num1} ${operator} ${num2} = ${result}`;
+// const display = document.querySelector("#display");
+// display.innerHTML = `${num1} ${operator} ${num2} = ${result}`;
